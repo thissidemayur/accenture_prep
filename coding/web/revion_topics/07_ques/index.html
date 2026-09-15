@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+     <!-- Add Student -->
+      <h2>Add Student</h2>
+     <form id="addStudentForm">
+      <input name="name" type="text" placeholder="Enter Student Name">
+      <input name="age" type="number" placeholder="Student Age">
+      <button type="submit">Add Student</button>
+     </form>
+
+     <br><br>
+    <input id="searchInput" placeholder="Search student" />
+
+    <select id="sortSelect">
+      <option value="none">No Sort</option>
+      <option value="ageLow">Age: Low → High</option>
+      <option value="ageHigh">Age: High → Low</option>
+      <option value="nameAZ">Name: A → Z</option>
+    </select>
+
+   
+
+     <!-- Table -->
+    <table id="studentTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <script src="index.js"></script>
+  </body>
+</html>

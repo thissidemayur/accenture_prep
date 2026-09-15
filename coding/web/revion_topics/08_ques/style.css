@@ -1,0 +1,20 @@
+.active {
+  background-color: green;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 300px;
+}
+
+.active {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}

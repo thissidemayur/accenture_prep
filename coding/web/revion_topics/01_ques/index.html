@@ -1,0 +1,38 @@
+<!-- 
+Ques1: Developing a search filter for a website where user can filter a list of fruits and vegetables dynamically based on search input.
+Objective:
+  - HTML: add 5 list elements(frusts or vegetables) inside an unordered list with the class product and a data-name attribute containing their search tags.
+  - CSS: set the font size of the list items to 25px
+  - JS:
+  	- set the inital search value input to "nana"
+  	- implement code to display a product if the search input is part of its name; otherwise hide it using CSS
+  	
+  	 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <input type="text" id="search" >
+
+    </div>
+    <div>
+        <ul>
+            <li class="product" >Apple</li>
+            <li class="product" >Banana</li>
+            <li class="product" >Mange</li>
+        </ul>
+    </div>
+
+    <button id="btn">Click Me</button>
+    
+    <script src="index.js" ></script>
+</body>
+</html>

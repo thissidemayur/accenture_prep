@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="userForm">
+      <input id="name" name="name" placeholder="Name" />
+
+      <input id="email" name="email" placeholder="Email" />
+
+      <select id="role" name="role">
+        <option value="">Select Role</option>
+        <option value="developer">Developer</option>
+        <option value="tester">Tester</option>
+        <option value="designer">Designer</option>
+      </select>
+
+      <button type="submit">Add User</button>
+    </form>
+
+    <p id="error"></p>
+
+    <div id="users"></div>
+
+        <script src="index.js" defer></script>
+
+  </body>
+</html>
+
+<!-- 
+# Accenture Web-Based Problem — Persistent User Management
+
+Build a User Management UI using **JavaScript DOM manipulation, FormData, Arrays/Objects, localStorage, JSON, and Event Delegation**.
+
+## Requirements
+
+1. **Form Submission**
+
+   * Handle form submission using the `submit` event.
+   * Prevent the browser's default submission using `event.preventDefault()`.
+   * Use `FormData` to retrieve `name`, `email`, and `role`.
+
+2. **Validation**
+
+   * Name must not be empty.
+   * Email must not be empty.
+   * Role must be selected.
+   * Store and render the user only if validation succeeds.
+   * Display validation errors in the UI.
+
+3. **Create User Object**
+
+   * Create a user object containing:
+
+     * `id`
+     * `name`
+     * `email`
+     * `role`
+   * Generate a unique ID for every user.
+
+4. **Maintain User Array**
+
+   * Store users in a JavaScript array called `userList`.
+   * Add new users using `push()`.
+
+5. **Persist Data**
+
+   * Store `userList` in `localStorage` using `JSON.stringify()`.
+   * On page load, retrieve the stored data using `getItem()`.
+   * Convert it back into a JavaScript array using `JSON.parse()`.
+   * If no stored data exists, initialize `userList` as `[]`.
+
+6. **Dynamic DOM Rendering**
+
+   * Dynamically create each user's UI using:
+
+     * `createElement()`
+     * `textContent`
+     * `className`
+     * `dataset`
+     * `append()` / `appendChild()`
+   * Display:
+
+     * Name
+     * Email
+     * Role
+     * Delete button
+
+7. **Delete User**
+
+   * Use event delegation on the users container.
+   * Identify the clicked Delete button using `event.target.closest()`.
+   * Find the corresponding user element.
+   * Retrieve the user's ID using `dataset.id`.
+   * Remove the user from `userList` using `filter()`.
+   * Update `localStorage`.
+   * Re-render the updated user list.
+
+8. **Persistence Requirement**
+
+   * Added users must remain after page refresh.
+   * Deleted users must remain deleted after page refresh.
+
+9. **Architecture**
+
+   * Keep data/state and DOM rendering logically separated.
+   * Use a rendering function such as:
+     `renderUser(userList)`
+   * Whenever `userList` changes:
+
+     1. Update `userList`
+     2. Update `localStorage`
+     3. Re-render the UI
+
+## Expected Flow
+
+FORM SUBMIT
+→ preventDefault()
+→ FormData
+→ validation
+→ create user object
+→ userList.push()
+→ JSON.stringify()
+→ localStorage.setItem()
+→ renderUser()
+
+PAGE LOAD
+→ localStorage.getItem()
+→ JSON.parse()
+→ userList
+→ renderUser()
+
+DELETE
+→ event delegation
+→ closest()
+→ dataset.id
+→ userList.filter()
+→ JSON.stringify()
+→ localStorage.setItem()
+→ renderUser()
+
+## Concepts Tested
+
+FormData • validation • objects • arrays • push() • filter() • Object.keys() • Object.values() • DOM manipulation • createElement() • textContent • dataset • append() • events • preventDefault() • event.target • closest() • event delegation • localStorage • JSON.stringify() • JSON.parse() • state management • dynamic rendering
+
+
+-->
