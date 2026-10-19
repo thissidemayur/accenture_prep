@@ -18,6 +18,7 @@
 
 ## Q1. A startup wants to deploy code while avoiding management of the underlying servers and operating system. Which cloud model fits best?
 
+
 A. IaaS
 B. PaaS
 C. SaaS
