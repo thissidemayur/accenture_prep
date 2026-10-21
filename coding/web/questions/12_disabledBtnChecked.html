@@ -5,43 +5,44 @@ Disbled button Untill checkbox is checked
     2. submit button
 the submit button should be disabled initallbly enable it only when checkbox is checked
 -->
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Terms And Conditions</title>
     <style>
-        .success{
-            color:green
-        }
+      .success {
+        color: green;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <form id="termsForm">
-        <label >
-            <input type="checkbox" id="agree" >
-            I agree to the terms and conditions
-        </label>
-        <button id="submitBtn" type="submit">Submit</button>
+      <label>
+        <input type="checkbox" id="agree" />
+        I agree to the terms and conditions
+      </label>
+      <button id="submitBtn" type="submit" disabled>Submit</button>
     </form>
     <p id="message"></p>
 
     <script>
-        const agree = document.querySelector("#agree");
-    const submitBtn = document.querySelector("#submitBtn");
-    const termsForm = document.querySelector("#termsForm");
-    const message = document.querySelector("#message");
+      const agree = document.querySelector("#agree");
+      const submitBtn = document.querySelector("#submitBtn");
+      const termsForm = document.querySelector("#termsForm");
+      const message = document.querySelector("#message");
 
-      agree.addEventListener("change",()=>{
-            submitBtn.disabled = !agree.checked
-        })
+      agree.addEventListener("change", () => {
+        message.textContent = "";
+        submitBtn.disabled = !agree.checked;
+      });
 
-        termsForm.addEventListener("submit",(e)=>{
-            e.preventDefault()
-            message.textContent = "Form Successfully submit"
-            message.className="success"
-        })
+      termsForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        message.textContent = "Form Successfully submit";
+        message.className = "success";
+      });
     </script>
-</body>
+  </body>
 </html>
