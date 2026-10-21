@@ -1,0 +1,147 @@
+<!-- 
+A dashboard displays products with checkboxes. Users can filter products by category, select individual products, and use a bulk action to mark selected products as reviewed. 
+
+Requirements
+1. Filter products according to the selected category. Selecting all displays every product.
+2. Filtering must not reset the checkboxes of products that become hidden.
+3. Update Selected: N whenever a checkbox changes. Count all checked products, including checked products that are currently hidden.
+4. When the user clicks Mark Selected as Reviewed, mark every checked product as Reviewed and add the reviewed class to its li.
+5. After the bulk action, uncheck all products that were selected, including hidden ones.
+6. Update the selected count after the bulk action.
+7. Display No products found. only when the active filter matches zero products.
+8. If no products are selected, clicking the bulk-action button must not change any product's status.
+9. Use event delegation for checkbox changes: attach one change listener to the product list.
+10. Preserve all existing HTML, IDs and classes. Do not create new product elements.
+
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Dashboard: Filter, Select and Bulk Action</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .product.reviewed {
+        background: #e5ffe5;
+      }
+
+      .product {
+        padding: 8px;
+        margin: 4px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="dashboard">
+      <select id="category-filter">
+        <option value="all">All Categories</option>
+        <option value="electronics">Electronics</option>
+        <option value="books">Books</option>
+      </select>
+
+      <button id="review-selected">Mark Selected as Reviewed</button>
+
+      <p id="selected-count">Selected: 0</p>
+
+      <ul id="product-list">
+        <li class="product" data-category="electronics">
+          <input type="checkbox" class="product-checkbox" />
+          <span class="product-name">Keyboard</span>
+          <span class="product-status">Pending</span>
+        </li>
+
+        <li class="product" data-category="books">
+          <input type="checkbox" class="product-checkbox" />
+          <span class="product-name">JavaScript Guide</span>
+          <span class="product-status">Pending</span>
+        </li>
+
+        <li class="product" data-category="electronics">
+          <input type="checkbox" class="product-checkbox" />
+          <span class="product-name">Headphones</span>
+          <span class="product-status">Pending</span>
+        </li>
+      </ul>
+
+      <p id="empty-message" class="hidden">No products found.</p>
+    </div>
+
+    
+<script>
+  const categoryFilter = document.querySelector("#category-filter");
+  const reviewSelected = document.querySelector("#review-selected");
+  const selectedCount = document.querySelector("#selected-count");
+  const productList = document.querySelector("#product-list");
+  const emptyMsg = document.querySelector("#empty-message");
+
+  const products = [...document.querySelectorAll(".product")];
+
+  // Update the selected counter
+  function updateSelectedCount() {
+    const checkedCount = productList.querySelectorAll(
+      ".product-checkbox:checked"
+    ).length;
+
+    selectedCount.textContent = `Selected: ${checkedCount}`;
+  }
+
+  // Filter existing products without recreating them
+  function filterProducts() {
+    const selectedCategory = categoryFilter.value;
+    let visibleCount = 0;
+
+    products.forEach((product) => {
+      const matches =
+        selectedCategory === "all" ||
+        product.dataset.category === selectedCategory;
+
+      product.style.display = matches ? "" : "none";
+
+      if (matches) {
+        visibleCount++;
+      }
+    });
+
+    emptyMsg.classList.toggle("hidden", visibleCount > 0);
+  }
+
+  // Event delegation: handle checkbox changes
+  productList.addEventListener("change", (event) => {
+    if (!event.target.matches(".product-checkbox")) return;
+
+    updateSelectedCount();
+  });
+
+  // Category filter
+  categoryFilter.addEventListener("change", filterProducts);
+
+  // Bulk review action
+  reviewSelected.addEventListener("click", () => {
+    const checkedBoxes = productList.querySelectorAll(
+      ".product-checkbox:checked"
+    );
+
+    checkedBoxes.forEach((checkbox) => {
+      const product = checkbox.closest(".product");
+
+      product.classList.add("reviewed");
+      product.querySelector(".product-status").textContent = "Reviewed";
+
+      checkbox.checked = false;
+    });
+
+    updateSelectedCount();
+  });
+
+  // Initialize the interface
+  filterProducts();
+  updateSelectedCount();
+</script>
+
+  </body>
+</html>

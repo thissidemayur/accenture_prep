@@ -1,0 +1,47 @@
+<!-- 
+Disbled button Untill checkbox is checked
+- create a form with: 
+    1. checkboc: i agree to terms
+    2. submit button
+the submit button should be disabled initallbly enable it only when checkbox is checked
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms And Conditions</title>
+    <style>
+        .success{
+            color:green
+        }
+    </style>
+</head>
+<body>
+    <form id="termsForm">
+        <label >
+            <input type="checkbox" id="agree" >
+            I agree to the terms and conditions
+        </label>
+        <button id="submitBtn" type="submit">Submit</button>
+    </form>
+    <p id="message"></p>
+
+    <script>
+        const agree = document.querySelector("#agree");
+    const submitBtn = document.querySelector("#submitBtn");
+    const termsForm = document.querySelector("#termsForm");
+    const message = document.querySelector("#message");
+
+      agree.addEventListener("change",()=>{
+            submitBtn.disabled = !agree.checked
+        })
+
+        termsForm.addEventListener("submit",(e)=>{
+            e.preventDefault()
+            message.textContent = "Form Successfully submit"
+            message.className="success"
+        })
+    </script>
+</body>
+</html>

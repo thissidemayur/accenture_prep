@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .rating-container {
+        width: 350px;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+
+      .star {
+        font-size: 35px;
+        cursor: pointer;
+        color: #ccc;
+        margin-right: 5px;
+      }
+
+      .star.filled {
+        color: #ffd700;
+      }
+
+      #rating-text {
+        margin-top: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="rating-container">
+      <h2 id="product-name">Wireless Headphones</h2>
+
+      <div id="rating-stars"></div>
+
+      <p id="rating-text">No rating selected</p>
+
+      <button id="reset-rating">Reset Rating</button>
+    </div>
+    <script>
+        const ratingStars = document.querySelector("#rating-stars")
+        const resetRating = document.querySelector("#reset-rating")
+        const ratingText = document.querySelector("#rating-text")
+
+        function loadStars() {
+            for(let i=0;i<5;i++) {
+                const span = document.createElement("span")
+                span.classList.add("star")
+                span.textContent="★"
+
+                ratingStars.appendChild(span)
+            }
+        }
+        loadStars()
+
+        ratingStars.addEventListener("click",(event)=>{
+            const span = event.target.closest("span")
+            if(!span) return
+            span.classList.toggle("filled")
+
+            const spanArray = document.querySelectorAll("#rating-stars .filled")
+            
+            let totalRate = 0
+            spanArray.forEach((el)=>{
+                totalRate++
+            })
+
+            const rating= `${totalRate}/5`
+             ratingText.textContent = totalRate ===0 ? '0' : rating
+
+        })
+
+        resetRating.addEventListener("click",()=>{
+            const spanArr  = document.querySelectorAll("#rating-stars .filled")
+            spanArr.forEach((span)=>{
+                span.classList.remove("filled")
+            })
+            ratingText.textContent = "No rating selected"
+        })
+
+    </script>
+
+  </body>
+</html>

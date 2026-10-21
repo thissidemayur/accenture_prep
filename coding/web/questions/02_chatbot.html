@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Chatbot</title>
+
+    <style>
+      .chat-container {
+        width: 400px;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+
+      .message {
+        padding: 10px;
+        margin: 5px;
+      }
+
+      .bot-message {
+        background-color: #e8e8e8;
+      }
+
+      .user-message {
+        background-color: white;
+      }
+
+      .chat-input {
+        margin-top: 10px;
+        padding: 8px;
+        width: 250px;
+      }
+
+      .send-btn {
+        padding: 8px 15px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="chat-container">
+      <div id="chat-messages">
+        <div id="welcome-message" class="message">
+          Welcome! How can I help you?
+        </div>
+      </div>
+
+      <input
+        type="text"
+        id="user-input"
+        class="chat-input"
+        placeholder="Type your message"
+      />
+
+      <button id="send-btn" class="send-btn">Send</button>
+    </div>
+
+    <script>
+      // Implement your JavaScript here
+
+      const userInput = document.querySelector("#user-input");
+      const sendBtn = document.querySelector("#send-btn");
+      const chatMsg = document.querySelector("#chat-messages");
+      const wlcmeMsg = document.querySelector("#welcome-message");
+
+        sendBtn.addEventListener("click",()=>{
+            const userInputVal =userInput.value.trim()
+            if(!userInputVal) return;
+            userInput.value=""
+
+            wlcmeMsg.classList.add("bot-message")
+
+            const div = document.createElement("div")
+            div.classList.add("user-message","message")
+            div.style.background="#cfe2ff"
+            div.textContent = userInputVal
+
+            chatMsg.append(div)
+        })
+
+
+    </script>
+  </body>
+</html>

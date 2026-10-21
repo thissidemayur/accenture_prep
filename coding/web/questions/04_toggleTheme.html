@@ -1,0 +1,38 @@
+<!-- 
+Toggle between light and dark mode 
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle Between Dark and Light Mode</title>
+    <style>
+        body{
+            background-color: aliceblue;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+        }
+        .dark{
+            background-color: rgb(1, 1, 1);
+            color: aliceblue;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        button{
+            margin: auto 2px;
+        }
+    </style>
+  </head>
+  <body>
+    <h2>Toggle Theme</h2>
+    <button onclick="toggleBtn()">
+        Switch Theme
+    </button>
+    <script>
+        function toggleBtn() {
+            document.body.classList.toggle("dark")
+
+        }
+    </script>
+  </body>
+</html>

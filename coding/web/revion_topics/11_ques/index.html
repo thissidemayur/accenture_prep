@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="product">
+      <h2 id="product-name">Laptop</h2>
+      <p id="stock-status">In Stock</p>
+      <button id="decrease">-</button>
+      <span id="quantity">1</span>
+      <button id="increase">+</button>
+      <p id="total-price">Total: ₹50000</p>
+    </div>
+
+    <script>
+        const stockStatus= document.querySelector("#stock-status")
+        const decrease = document.querySelector("#decrease")
+        const increase = document.querySelector("#increase")
+        const quantity=document.querySelector("#quantity")
+        const totalPrice=document.querySelector("#total-price")
+
+        function updateProduct({productStock}) {
+            if(productStock === "decrease") {
+                
+            }
+        }
+        decrease.addEventListener("click",()=>updateProduct({productStock:"decrease"}))
+    </script>
+  </body>
+</html>

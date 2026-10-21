@@ -1,0 +1,37 @@
+<!-- 
+Countdown Timer 
+- create a countdown timer from 10 to 0
+- Display "Time Over" at the end 
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timmer</title>
+</head>
+<body>
+    <h2 id="timer">3</h2>
+    <p id="message"></p>
+
+
+    <script>
+        const timer=document.querySelector("#timer")
+        const message = document.querySelector("#message")
+
+        let seconds = Number(timer.textContent.trim())
+
+        const intervalId= setInterval(() => {
+            seconds--;
+            timer.textContent = seconds
+            if(seconds <0) {
+                clearInterval(intervalId)
+                timer.style.display="none"
+                message.textContent="Time over"
+            }
+        }, 1000);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!-- create a ToDO App -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todo App</title>
+  <style>
+    .task { margin: 8px 0; }
+    .task button { margin-left: 6px; }
+  </style>
+</head>
+
+<body>
+  <input id="taskInput" type="text" placeholder="Write task">
+  <button id="addTask">Add Task</button>
+  <div id="totalTask">Total Task: 0</div>
+  <ul id="taskList"></ul>
+
+  <script>
+    const taskInput = document.querySelector("#taskInput");
+    const addTask = document.querySelector("#addTask");
+    const taskList = document.querySelector("#taskList");
+    const totalTask = document.querySelector("#totalTask");
+
+    let editingTask = null;
+
+    function updateUI() {
+      totalTask.textContent =
+        `Total Task: ${taskList.children.length}`;
+    }
+
+    function resetEditing() {
+      editingTask = null;
+      taskInput.value = "";
+      addTask.textContent = "Add Task";
+    }
+
+    function createTask(message) {
+      const li = document.createElement("li");
+      li.classList.add("task");
+
+      const taskText = document.createElement("span");
+      taskText.classList.add("task-text");
+      taskText.textContent = message;
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete-btn";
+      deleteBtn.textContent = "Delete";
+
+      const updateBtn = document.createElement("button");
+      updateBtn.className = "update-btn";
+      updateBtn.textContent = "Update";
+
+      li.append(taskText, deleteBtn, updateBtn);
+      taskList.appendChild(li);
+    }
+
+    addTask.addEventListener("click", () => {
+      const message = taskInput.value.trim();
+
+      if (!message) return;
+
+      if (editingTask) {
+        editingTask.querySelector(".task-text").textContent = message;
+        resetEditing();
+      } else {
+        createTask(message);
+        taskInput.value = "";
+      }
+
+      updateUI();
+    });
+
+    taskList.addEventListener("click", (event) => {
+      const deleteBtn = event.target.closest(".delete-btn");
+      const updateBtn = event.target.closest(".update-btn");
+
+      if (deleteBtn) {
+        const task = deleteBtn.closest(".task");
+        if (!task) return;
+
+        if (editingTask === task) resetEditing();
+
+        task.remove();
+        updateUI();
+        return;
+      }
+
+      if (updateBtn) {
+        editingTask = updateBtn.closest(".task");
+        if (!editingTask) return;
+
+        taskInput.value =
+          editingTask.querySelector(".task-text").textContent;
+
+        addTask.textContent = "Save Task";
+      }
+    });
+
+    updateUI();
+  </script>
+</body>
+</html>

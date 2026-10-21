@@ -1,0 +1,65 @@
+<!-- 
+Form Validation Using JS
+- create a login form with: email,password, submit button
+- validat: email should contain '@'
+- password should be >= 6 char
+- if invalid => show red error message 
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login form</title>
+    <style>
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="loginForm">
+      <label for="email">Email: </label>
+      <input type="text" id="email" name="email" />
+      <br />
+      <label for="password">Password: </label>
+      <input type="password" id="password" name="password" />
+      <br />
+      <button type="submit">Login</button>
+    </form>
+    <p id="message" role="alert"></p>
+
+    <script>
+      const loginForm = document.querySelector("#loginForm");
+      const message = document.querySelector("#message");
+
+      loginForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const formData = new FormData(loginForm);
+        message.textContent = "";
+        const email = formData.get("email").trim();
+        const password = formData.get("password").trim();
+
+        let error = [];
+        if (!email || !email.includes("@")) {
+          error.push("Please enter an email containing @");
+        }
+        if (password.length < 6) {
+          error.push("Password must be at least 6 characters");
+        }
+
+        if (error.length > 0) {
+          message.textContent = error.join(",");
+          message.className = "error";
+          return;
+        }
+        message.textContent = "Validation successgully";
+        message.className = "success";
+      });
+    </script>
+  </body>
+</html>
