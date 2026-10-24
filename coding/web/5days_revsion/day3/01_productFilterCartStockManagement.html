@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Filter + Cart + Stock Management</title>
+    <style>
+      #products {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .product {
+        border: 1px solid #ccc;
+        padding: 16px;
+        border-radius: 8px;
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    </style>
+  </head>
+  <body>
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="audio">Audio</option>
+      <option value="computer">Computer</option>
+    </select>
+
+    <div id="products">
+      <article
+        class="product"
+        data-category="audio"
+        data-price="1500"
+        data-stock="3"
+      >
+        <h3>Headphones</h3>
+        <p>₹1500</p>
+        <p class="stock">Stock: 3</p>
+        <button class="add">Add to Cart</button>
+      </article>
+
+      <article
+        class="product"
+        data-category="computer"
+        data-price="2000"
+        data-stock="2"
+      >
+        <h3>Keyboard</h3>
+        <p>₹2000</p>
+        <p class="stock">Stock: 2</p>
+        <button class="add">Add to Cart</button>
+      </article>
+      <article
+        class="product"
+        data-category="computer"
+        data-price="800"
+        data-stock="5"
+      >
+        <h3>Mouse</h3>
+        <p>₹800</p>
+        <p class="stock">Stock: 5</p>
+        <button class="add">Add to Cart</button>
+      </article>
+    </div>
+
+    <!--  -->
+    <p id="emptyState">No products found</p>
+    <p>Cart items: <span id="cartCount">0</span></p>
+    <p>Total: <span id="cartTotal">0</span></p>
+
+    <!--  -->
+    <script>
+        const filter = document.querySelector("#categoryFilter")
+        const products = document.querySelector("#products")
+        const emptyState = document.querySelector("#emptyState")
+        const cartCount = document.querySelector("#cartCount")
+        const cartTotal = document.querySelector("#cartTotal")
+
+        // 
+
+        let totalItem = 0;
+        let totalPrice = 0;
+
+        // 
+        products.addEventListener("click",(e)=>{
+            console.log("!")
+            const btn  = e.target.closest(".add")
+            if(!btn || !products.contains(btn)) return
+
+            const card = btn.closest(".product")
+            let stock = Number(card.dataset.stock)
+
+            if(stock <=0 ) return
+
+            stock --
+            card.dataset.stock=stock
+            card.querySelector(".stock").textContent =`Stock: ${stock}`
+            btn.disabled = stock===0
+
+            totalItem++;
+            totalPrice += Number(card.dataset.price)
+
+            cartCount.textContent = totalItem
+            cartTotal.textContent = totalPrice
+        })
+
+        filter.addEventListener("change",()=>{
+            const selectedCategory = filter.value
+            let visibleCnt = 0;
+
+            document.querySelectorAll(".product").forEach((card)=>{
+                const matches = selectedCategory === "all" || card.dataset.category===selectedCategory
+                card.hidden = !matches
+
+                if(matches) visibleCnt++;
+            })
+
+            emptyState.hidden = visibleCnt !==0 
+        })
+
+        // initalize buttons tate from stock
+        document.querySelectorAll(".products").forEach((card)=>{
+            const btn = card.querySelector(".add")
+            btn.disabled = Number(card.dataset.stock) === 0
+        })
+    </script>
+  </body>
+</html>

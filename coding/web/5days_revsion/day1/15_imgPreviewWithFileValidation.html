@@ -1,0 +1,90 @@
+<!-- 
+Day 1 — Question 2: Image Preview with File Validation 
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Preview with File Validation</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      #error {
+        color: red;
+      }
+
+      #preview {
+        max-width: 300px;
+        max-height: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <input type="file" id="imageInput" accept="image/*" />
+      <p id="error" class="hidden"></p>
+      <img id="preview" class="hidden" alt="Image preview" />
+      <button id="removeImage" disabled>Remove Image</button>
+    </div>
+
+    <script>
+      const imageInput = document.querySelector("#imageInput");
+      const error = document.querySelector("#error");
+      const preview = document.querySelector("#preview");
+      const removeImage = document.querySelector("#removeImage");
+
+      let previewURL = null;
+
+      function resetPreview() {
+        if (previewURL) {
+          URL.revokeObjectURL(previewURL);
+          previewURL = null;
+        }
+
+        preview.removeAttribute("src");
+        preview.classList.add("hidden");
+        error.classList.add("hidden");
+        error.textContent = "";
+        removeImage.disabled = true;
+      }
+
+      imageInput.addEventListener("change", (event) => {
+        resetPreview();
+
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          error.textContent = "Please select a valid image.";
+          error.classList.remove("hidden");
+          return;
+        }
+
+        previewURL = URL.createObjectURL(file);
+        preview.src = previewURL;
+        preview.classList.remove("hidden");
+        removeImage.disabled = false;
+      });
+
+      removeImage.addEventListener("click", () => {
+        resetPreview();
+        imageInput.value = "";
+      });
+    </script>
+  </body>
+</html>
+
+<!-- 
+Requirements
+1. When the user selects an image, display it in the existing preview element.
+2. Hide the error message when the selected file is valid.
+3. If no file is selected, keep the preview hidden and disable the Remove Image button.
+4. If the selected file's MIME type does not start with image/, display Please select a valid image. and keep the preview hidden.
+5. When a valid image is selected, show the preview and enable Remove Image.
+6. Clicking Remove Image must clear the file input, hide the preview, hide the error, and disable the button.
+7. Do not create new HTML elements.
+-->

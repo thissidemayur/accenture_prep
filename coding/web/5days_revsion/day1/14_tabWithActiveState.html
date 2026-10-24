@@ -1,0 +1,63 @@
+<!-- Question 1 — Tabs with active state -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabs with active state</title>
+    <style>
+      .active {
+        background: black;
+        color: white;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tabs">
+      <button class="tab active" data-target="profile">Profile</button>
+      <button class="tab" data-target="settings">Settings</button>
+      <button class="tab" data-target="security">Security</button>
+    </div>
+
+    <div id="profile" class="panel">Profile content</div>
+    <div id="settings" class="panel hidden">Settings content</div>
+    <div id="security" class="panel hidden">Security content</div>
+  </body>
+
+  <script>
+    const tabs = document.querySelector("#tabs");
+
+    tabs.addEventListener("click", (event) => {
+      const elem = event.target;
+      const target = elem.dataset.target;
+      if (!target) return;
+
+      const tab = document.querySelectorAll(".tab");
+      tab.forEach((t) => {
+        if (t !== elem) {
+          t.classList.remove("active");
+          const tar = t.dataset.target;
+          document.querySelector(`#${tar}`).classList.add("hidden");
+        } else {
+          t.classList.add("active");
+          const tar = t.dataset.target;
+          document.querySelector(`#${tar}`).classList.remove("hidden");
+        }
+      });
+    });
+  </script>
+</html>
+
+<!-- 
+Requirements
+1. Clicking a tab adds active to that tab and removes it from the other tabs.
+2. Display only the panel associated with the clicked tab.
+3. Hide all other panels using the existing hidden class.
+4. Use event delegation: attach only one click listener to #tabs.
+5. Do not recreate elements or modify the HTML.
+6. The initially active Profile tab must continue to work.
+-->

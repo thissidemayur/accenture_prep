@@ -1,0 +1,98 @@
+<!-- Day 1 — Question 3: FormData and Validation -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormData and Validation</title>
+    <style>
+      .hidden {
+        display: none;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="registrationForm">
+      <input type="text" name="username" id="username" placeholder="Username" />
+
+      <input type="text" name="email" id="email" placeholder="Email" />
+
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Password"
+      />
+
+      <label>
+        <input type="checkbox" name="terms" id="terms" />
+        I accept the terms
+      </label>
+
+      <button type="submit">Register</button>
+
+      <p id="message" class="hidden"></p>
+    </form>
+
+    <script>
+      const form = document.querySelector("#registrationForm");
+      const message = document.querySelector("#message");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        message.textContent = "";
+
+        const formData = new FormData(form);
+        const username = formData.get("username").trim();
+        const email = formData.get("email").trim();
+        const password = formData.get("password");
+        const term = formData.get("terms");
+        if (username.length < 3 || !username) {
+          message.textContent =
+            "username containing at least 3 non-whitespace chars";
+        } else if (!email || !email.includes("@")) {
+          message.textContent = "email must contain @";
+        } else if (!password || password.length < 8) {
+          message.textContent = "password atleast 8char long";
+        }
+
+        if (message.textContent) {
+          message.classList.add("error");
+          message.classList.remove("hidden");
+          return;
+        }
+
+        const submitBtn = form.querySelector("button");
+        submitBtn.disabled = !term.checked;
+
+        message.classList.add("success");
+        message.classList.remove("hidden");
+        message.textContent = "Regiestration SUccessully";
+        console.log("done");
+      });
+    </script>
+  </body>
+</html>
+
+<!-- 
+Requirements
+Write JavaScript that:
+1. Handles the form's submit event and prevents the default submission.
+2. Uses new FormData(form) to retrieve all four values.
+3. Requires a username containing at least 3 non-whitespace characters.
+4. Requires an email containing @.
+5. Requires a password of at least 8 characters.
+6. Requires the terms checkbox to be checked.
+7. Displays the first validation error only, using the existing message element and the error class.
+8. If all checks pass, display Registration successful! using the success class.
+9. Preserve the input values when validation fails.
+-->

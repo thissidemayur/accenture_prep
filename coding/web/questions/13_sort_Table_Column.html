@@ -4,15 +4,71 @@ Create a table of employees
 clicking on salary column headers shhould sort salaries in ascending order 
 -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sort Employee Salaries</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        border: 1px solid #aaa;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th button {
+        font: inherit;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>
+            <button id="sortSalary" type="button">Salary ↕</button>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody id="employeeBody">
+         <tr><td>Aman</td><td class="salary">50000</td></tr>
+      <tr><td>Priya</td><td class="salary">35000</td></tr>
+      <tr><td>Rahul</td><td class="salary">70000</td></tr>
+      <tr><td>Neha</td><td class="salary">45000</td></tr>
+      </tbody>
+    </table>
+
+
+    <script>
+      const employeeBody = document.querySelector("#employeeBody")
+      const sortSalary = document.querySelector("#sortSalary")
+
+      let assecending=true
+      sortSalary.addEventListener("click",()=>{
+        const rows = Array.from(employeeBody.querySelectorAll("tr"))
+        rows.sort((rowA,rowB)=>{
+          const salA = Number(rowA.querySelector(".salary").textContent)
+          const salB =  Number(rowB.querySelector(".salary").textContent)
+
+          return assecending ? salA-salB : salB-salA
+        })
+
+        employeeBody.append(...rows)
+        sortSalary.textContent = assecending ?"Salary ↑" : "Salary ↓";
+      })
+      
+    </script>
+  </body>
 </html>
