@@ -1,0 +1,87 @@
+<!-- 
+Create a fieldset containing a legend and a sample box. Let the user change the border color, border style, and border width. When the user clicks Restore Default, reset every setting to its original value. 
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>>Border Customizer</title>
+    <style>
+      #preview {
+        border: 2px solid black;
+        padding: 20px;
+        margin: 16px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset>
+      <legend>>Border Customizer</legend>
+
+      <label>
+        Color:
+        <select id="color">
+          <option value="black">Black</option>
+          <option value="red">Red</option>
+          <option value="green">green</option>
+          <option value="blue">blue</option>
+        </select>
+      </label>
+
+      <label>
+        Style:
+        <select id="style">
+          <option value="solid">Solid</option>
+          <option value="dashed">Dashed</option>
+          <option value="dotted">Dotted</option>
+        </select>
+      </label>
+
+      <label>
+        Width:
+        <select id="width">
+          <option value="2px">2px</option>
+          <option value="3px">3px</option>
+          <option value="4px">4px</option>
+        </select>
+      </label>
+
+      <div id="preview">Preview Box</div>
+      <button type="button" id="apply">Apply</button>
+      <button type="button" id="reset">Restore Default</button>
+    </fieldset>
+
+    <script>
+      const color = document.querySelector("#color");
+      const style = document.querySelector("#style");
+      const width = document.querySelector("#width");
+      const preview = document.querySelector("#preview");
+      const apply = document.querySelector("#apply");
+      const reset = document.querySelector("#reset");
+
+      const defaults = {
+        color:"black",
+        style:"solid",
+        width:"2px"
+      }
+
+      function applySettings(){
+        preview.style.borderColor = color.value
+        preview.style.borderStyle=style.value
+        preview.style.borderWidth=width.value
+      }
+
+      apply.addEventListener("click",applySettings)
+
+      reset.addEventListener("click",()=>{
+        color.value=defaults.color
+        style.value=defaults.style
+        width.value=defaults.width
+
+        applySettings()
+      })
+
+    </script>
+  </body>
+</html>
